@@ -1,0 +1,44 @@
+Public Class Form1
+    Dim randomNumber As Integer
+    Dim attempts As Integer = 0
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ' عند تشغيل البرنامج يتم توليد رقم عشوائي بين 1 و 100
+        Dim rnd As New Random()
+        randomNumber = rnd.Next(1, 101)
+    End Sub
+
+    Private Sub btnGuess_Click(sender As Object, e As EventArgs) Handles btnGuess.Click
+        Dim userGuess As Integer
+
+        ' التحقق من صحة الإدخال
+        If Integer.TryParse(txtGuess.Text, userGuess) Then
+            attempts += 1
+
+            If userGuess = randomNumber Then
+                lblResult.Text = "🎉 مبروك! خمنت الرقم في " & attempts & " محاولة."
+            ElseIf userGuess < randomNumber Then
+                lblResult.Text = "🔼 الرقم أكبر من " & userGuess
+            Else
+                lblResult.Text = "🔽 الرقم أصغر من " & userGuess
+            End If
+        Else
+            lblResult.Text = "⚠️ من فضلك أدخل رقم صحيح."
+        End If
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
+
+        Dim rnd As New Random()
+        randomNumber = rnd.Next(1, 101)
+        attempts = 0
+
+        lblResult.Text = "تم بدء لعبة جديدة 💞"
+        txtGuess.Clear()
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        MsgBox("تم انهئ البرنامج ✋✋")
+    End Sub
+End Class
